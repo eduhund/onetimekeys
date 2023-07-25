@@ -15,7 +15,7 @@ app.post("/setKey", (req, res) => {
 	log("New OTK set: ", user);
 	const key = OTK.setKey(user);
 	if (key) {
-		res.status(200).send({ OK: true, data: key });
+		res.status(200).send({ OK: true, data: { key } });
 	} else {
 		res.status(400).send({ OK: false, error: "OTK not generated" });
 	}
@@ -26,7 +26,12 @@ app.get("/checkKey", (req, res) => {
 	const { key } = req.query;
 	log("New OTK use: ", key);
 	const result = OTK.checkKey(key);
-	res.status(200).send(result);
+	if (result) {
+		res.status(200).send({ OK: true });
+	} else {
+		log("Error with key: ", key);
+		res.status(400).send({ OK: false, error: "OTK not generated" });
+	}
 });
 
 //Admin API. Просмотр списка активных одноразовых ключей.
