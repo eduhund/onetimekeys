@@ -1,3 +1,5 @@
+const { generateKey } = require("keycrafter");
+
 function oneTimeKeyMachine() {
 	const keys = [];
 
@@ -26,8 +28,8 @@ function oneTimeKeyMachine() {
 		}
 
 		try {
-			const newKey = Math.random().toString(36).substring(2);
-			keys = keys.filter((item) => item.userId !== user.id);
+			const newKey = generateKey({ type: "string", length: 8 });
+			//keys = keys.filter((item) => item.userId !== user.id);
 			keys.push({
 				key: newKey,
 				userId: user.id,
