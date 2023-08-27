@@ -1,16 +1,20 @@
 const { log } = console;
 const express = require("express");
+const OTK = require("../../core/otkMachine");
+const { SERVER_PORT = 443 } = process.env;
 
 const app = express();
-const { SERVER_PORT, ADMIN_VERIFY } = process.env;
 
 app.use(express.json());
 app.use(require("body-parser").urlencoded({ extended: false }));
 
-const OTK = require("../../core/otkMachine");
+const api = express.Router();
+const service = express.Router();
 
-//Admin API. Генерация одноразового кода для сброса пароля.
-app.post("/setKey", (req, res) => {
+app.use("/api", api);
+app.use("/service", service);
+
+api.post("/setKey", (req, res) => {
 	const user = req.body;
 	const key = OTK.setKey(user);
 	if (key) {
@@ -22,8 +26,7 @@ app.post("/setKey", (req, res) => {
 	}
 });
 
-//Admin API. Проверка валидности одноразового кода.
-app.get("/checkKey", (req, res) => {
+api.get("/checkKey", (req, res) => {
 	const { key } = req.query;
 	log("New OTK use: ", key);
 	const result = OTK.checkKey(key);
@@ -35,8 +38,7 @@ app.get("/checkKey", (req, res) => {
 	}
 });
 
-//Admin API. Просмотр списка активных одноразовых ключей.
-app.get("/getKeysList", (req, res) => {
+api.get("/getKeysList", (req, res) => {
 	const { authorization } = req.headers;
 	log("New OTK list check");
 	if (authorization !== ADMIN_VERIFY) {
