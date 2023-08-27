@@ -22,8 +22,8 @@ function oneTimeKeyMachine() {
 		}
 	}
 
-	function setKey(user) {
-		if (!user.id) {
+	function setKey(user, org) {
+		if (!user.id || !org) {
 			throw new Error("User ID is undefined");
 		}
 
@@ -33,6 +33,7 @@ function oneTimeKeyMachine() {
 			keys.push({
 				key: newKey,
 				userId: user.id,
+				org: org,
 				expiresAt: Date.now() + 120 * 60 * 60 * 1000,
 			});
 			return newKey;

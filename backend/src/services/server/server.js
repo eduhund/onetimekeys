@@ -1,6 +1,8 @@
-const { log } = console;
+const { log } = require("../logs/logs");
 const express = require("express");
 const METHODS = require("../../API/methods");
+const { checkAPIToken } = require("./security");
+const { responseHandler, pathHandler } = require("./responses");
 const { SERVER_PORT = 443 } = process.env;
 
 const app = express();
@@ -14,9 +16,14 @@ const service = express.Router();
 app.use("/api", api);
 app.use("/service", service);
 
+api.use(checkAPIToken);
+
 for (const { name, type, exec } of METHODS) {
 	api[type]("/" + name, exec);
 }
+
+app.use(responseHandler);
+app.use(pathHandler);
 
 async function start() {
 	return new Promise((resolve, reject) => {
@@ -24,7 +31,7 @@ async function start() {
 			if (err) {
 				return reject(err);
 			}
-			log(`OTK server starts on port ${SERVER_PORT}`);
+			log.info(`OTK server starts on port ${SERVER_PORT}`);
 			return resolve();
 		});
 	});
