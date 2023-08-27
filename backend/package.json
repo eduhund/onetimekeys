@@ -1,0 +1,25 @@
+{
+	"name": "otk-backend",
+	"version": "0.1.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"test": "jest"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/eduhund/onetimekeys.git"
+	},
+	"homepage": "https://onetimekeys.io",
+	"author": {
+		"name": "Roman Nebel",
+		"email": "im.roman.nebel@gmail.com",
+		"url": "https://github.com/roman-nebel"
+	},
+	"bugs": {
+		"url": "https://github.com/eduhund/onetimekeys/issues",
+		"email": "nebel@eduhund.com"
+	}
+}
