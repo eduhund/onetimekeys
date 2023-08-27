@@ -1,15 +1,6 @@
-const fs = require("fs");
-
-let keys = require("../../files/oneTimeKeys.json");
-
-function write(keys) {
-	fs.writeFileSync(
-		require.resolve("../../files/oneTimeKeys.json"),
-		JSON.stringify(keys)
-	);
-}
-
 function oneTimeKeyMachine() {
+	const keys = [];
+
 	function checkKey(key) {
 		try {
 			const keyIndex = keys.findIndex((item) => item.key === key);
@@ -21,7 +12,6 @@ function oneTimeKeyMachine() {
 			const { expiresAt } = keys[keyIndex];
 
 			keys.splice(keyIndex, 1);
-			write(keys);
 			if (expiresAt < now) {
 				return false;
 			} else return true;
@@ -43,7 +33,6 @@ function oneTimeKeyMachine() {
 				userId: user.id,
 				expiresAt: Date.now() + 120 * 60 * 60 * 1000,
 			});
-			write(keys);
 			return newKey;
 		} catch (e) {
 			console.log(e);
@@ -54,6 +43,7 @@ function oneTimeKeyMachine() {
 	function checkList() {
 		return keys;
 	}
+
 	return {
 		checkKey,
 		setKey,
