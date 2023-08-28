@@ -1,6 +1,8 @@
 const { log } = require("../logs/logs");
 const express = require("express");
-const METHODS = require("../../API/methods");
+const cors = require("cors");
+const API = require("../../API/methods");
+const SOURCE = require("../../source/methods");
 const { checkAPIToken } = require("./security");
 const { responseHandler, pathHandler } = require("./responses");
 const { SERVER_PORT = 443 } = process.env;
@@ -11,15 +13,30 @@ app.use(express.json());
 app.use(require("body-parser").urlencoded({ extended: false }));
 
 const api = express.Router();
-const service = express.Router();
+const source = express.Router();
 
 app.use("/api", api);
-app.use("/service", service);
+app.use("/source", source);
+
+api.use(
+	cors({
+		origin: "*",
+	})
+);
+source.use(
+	cors({
+		origin: "https://api.eduhund.com",
+	})
+);
 
 api.use(checkAPIToken);
 
-for (const { name, type, exec } of METHODS) {
+for (const { name, type, exec } of API) {
 	api[type]("/" + name, exec);
+}
+
+for (const { name, type, exec } of SOURCE) {
+	source[type]("/" + name, exec);
 }
 
 app.use(responseHandler);
