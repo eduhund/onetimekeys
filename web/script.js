@@ -7,6 +7,7 @@ function storeWorker() {
 		randomKeyType: "digit",
 		randomKeyLength: 4
 	}
+
 	function get(storage) {
 		return store[storage]
 	}
@@ -20,7 +21,7 @@ function storeWorker() {
 	function start() {
 		for (const [key, value] of Object.entries(store)) {
 			const initValue = localStorage.getItem(key)
-			if (initValue === undefined) {
+			if (initValue === null) {
 				setStorageValue(key, value)
 			} else {
 				store[key] = initValue
@@ -29,7 +30,6 @@ function storeWorker() {
 	}
 
 	function update(storage, value) {
-		console.log(storage, value)
 		if (!value) {
 			return store[storage]
 		} else if (store[storage] !== value) {
