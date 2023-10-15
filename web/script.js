@@ -1,13 +1,61 @@
-const userKeyType = localStorage.getItem("randomKeyType") || "digit";
-const userKeyLength = localStorage.getItem("randomKeyLength") || 4;
-
 const range = document.querySelector("input[type=range]");
 const number = document.querySelector("input[type=number]")
 const radio = document.querySelectorAll("input[type=radio]")
 
-range.value = userKeyLength
-number.value = userKeyLength
-document.querySelector(`input[name=type][value=${userKeyType}]`).checked = true
+function storeWorker() {
+	const store = {
+		randomKeyType: "digit",
+		randomKeyLength: 4
+	}
+	function get(storage) {
+		return store[storage]
+	}
+	
+	function setStorageValue(storage, value) {
+		localStorage.setItem(storage, value)
+		store[storage] = value
+		return value
+	}
+
+	function start() {
+		for (const [key, value] of Object.entries(store)) {
+			const initValue = localStorage.getItem(key)
+			if (initValue === undefined) {
+				setStorageValue(key, value)
+			} else {
+				store[key] = initValue
+			}
+		}
+	}
+
+	function update(storage, value) {
+		console.log(storage, value)
+		if (!value) {
+			return store[storage]
+		} else if (store[storage] !== value) {
+			return setStorageValue(storage, value)
+		} else return value
+	}
+
+	return {start, get, update}
+}
+
+function init() {
+	store.start()
+	const type = store.get("randomKeyType")
+	const length = store.get("randomKeyLength")
+
+	const maxSymbols = limit.changeLimit(type)
+
+	number.setAttribute("max", maxSymbols)
+	range.setAttribute("max", maxSymbols)
+
+	range.value = length
+	number.value = length
+	document.querySelector(`input[name=type][value=${type}]`).checked = true
+
+	generate({type, length});
+}
 
 function symbolLimit() {
 	let limit = 16
@@ -19,8 +67,6 @@ function symbolLimit() {
 
 	return {limit, changeLimit}
 }
-
-const limit = symbolLimit()
 
 range.addEventListener("input",(e)=>{
 	number.value = e.target.value;
@@ -67,20 +113,8 @@ radio.forEach((input) => {
 })
 
 async function generate({type, length}) {
-
-	const userKeyType = localStorage.getItem("randomKeyType") || "digit";
-	const userKeyLength = localStorage.getItem("randomKeyLength") || 4;
-
-	if (type) {
-		localStorage.setItem("randomKeyType", type)
-	}
-
-	if (length) {
-		localStorage.setItem("randomKeyLength", length)
-	}
-
-	const resultType = type || userKeyType
-	const resultLength = length || userKeyLength
+	const resultType = store.update("randomKeyType", type)
+	const resultLength = store.update("randomKeyLength", length)
 
 	const { OK, data, error } = await fetch(
 		`https://otk.eduhund.com/source/generate?type=${resultType}&length=${resultLength}`
@@ -89,4 +123,6 @@ async function generate({type, length}) {
 	document.querySelector("#key").innerHTML = data?.key;
 }
 
-generate({type: userKeyType, length: userKeyLength});
+const store = storeWorker()
+const limit = symbolLimit()
+init()
