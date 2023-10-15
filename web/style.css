@@ -52,12 +52,80 @@ input[type=number] {
 }
 
 .keyTypeSelector label {
-	display: block;
+	display: flex;
+	align-items: center;
+	gap: 4px;
 	padding: 4px 8px;
 	font-size: 24px;
 	line-height: 32px;
 	font-weight: 200;
 	color: #ffffff;
+}
+
+input[type=radio] {
+	margin: 9px;
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: transparent;
+	font: inherit;
+	color: #ffffff;
+	width: 24px;
+	height: 24px;
+	border: 2px solid #ffffff;
+	border-radius: 8px;
+}
+
+input[type="radio"]:hover:before {
+	display: block;
+	content: "";
+	width: 16px;
+	height: 16px;
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.1);
+	position: relative;
+	top: 2px;
+	left: 2px;
+}
+
+input[type="radio"]:checked:before {
+	display: block;
+	content: "";
+	width: 16px;
+	height: 16px;
+	border-radius: 4px;
+	background-color: #ffffff;
+	position: relative;
+	top: 2px;
+	left: 2px;
+}
+
+.keyLengthSelector {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.keyLengthSelector .number {
+	color: #ffffff;
+	background-color: transparent;
+	border: 2px solid transparent;
+	border-radius: 12px;
+	font-family: Poppins, Arial, Helvetica, sans-serif;;
+	font-size: 24px;
+	font-weight: 32px;
+	font-weight: 200;
+	padding: 4px;
+	text-align: center;
+}
+
+.keyLengthSelector .number:hover {
+	border-color: rgba(255, 255, 255, 0.1);
+	outline: none;
+}
+
+.keyLengthSelector .number:focus {
+	border-color:#ffffff;
+	outline: none;
 }
 
 .key {
@@ -70,12 +138,18 @@ input[type=number] {
 #refreshButton {
 	padding: 8px;
 	background-color: transparent;
-	border: 2px solid #ffffff;
+	border: 2px solid transparent;
 	border-radius: 12px;
 }
 
 #refreshButton:hover {
-	background-color: rgba(255, 255, 255, 0.1);
+	border-color: rgba(255, 255, 255, 0.1);
+	cursor: pointer;
+}
+
+#refreshButton:focus {
+	border-color:#ffffff;
+	outline: none;
 	cursor: pointer;
 }
 
