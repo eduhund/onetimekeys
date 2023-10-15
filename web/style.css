@@ -12,15 +12,27 @@ body {
 
 .keyContainer {
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	flex-grow: 1;
+	gap: 24px;
 }
 
 .key {
 	font-family: monospace;
 	font-size: 96px;
 	color: #ffffff;
+	cursor: pointer;
+}
+
+#refreshButton {
+	padding: 12px;
+	background-color: transparent;
+	border: 2px solid #ffffff;
+	border-radius: 12px;
+}
+
+#refreshButton:hover {
+	background-color: rgba(255, 255, 255, 0.1);
 	cursor: pointer;
 }
