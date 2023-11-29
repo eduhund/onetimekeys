@@ -8,7 +8,7 @@ function checkKey(req, res) {
 	if (result) {
 		res.status(200).send({ OK: true });
 	} else {
-		log.debug("OTK is invalid or expired:", key);
+		log.warn("OTK is invalid or expired:", key);
 		res.status(400).send({ OK: false, error: "OTK is invalid or expired" });
 	}
 }

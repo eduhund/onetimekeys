@@ -1,5 +1,5 @@
 const { MongoClient } = require("mongodb");
-const { log } = console;
+const { log } = require("../logs/logs");
 
 const { DB_URL, DB_NAME } = process.env;
 
@@ -11,7 +11,7 @@ function getCollection(name) {
 
 async function connect() {
 	await mongoClient.connect();
-	log("Connected to database successfully");
+	log.info("Connected to database successfully");
 }
 
 module.exports = {

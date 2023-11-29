@@ -1,8 +1,30 @@
+const { log } = require("../services/logs/logs");
 const { generateKey } = require("keycrafter");
+const { readFile, writeFile } = require("../services/fs/fs")
 
 function oneTimeKeyMachine() {
-	const keys = [];
 	const burnQueue = {}
+	const keys = readFromDump()
+	
+
+	function readFromDump() {
+		const now = Date.now()
+		const initKeys = readFile("/files/", "otk.json",) || [];
+		log.debug("Init previous keys:", initKeys.length)
+		const filtered = initKeys.filter((key) => key.expiresAt > now)
+		for (const key of filtered) {
+			const timeout = key.expiresAt - now 
+			addToBurnQueue(key, timeout > 0 ? timeout : 0)
+		}
+
+		writeFile("/files/", "otk.json", filtered)
+
+		return filtered
+	}
+
+	function writeToDump() {
+		writeFile("/files/", "otk.json", keys)
+	}
 
 	function checkKey(key) {
 		try {
@@ -16,7 +38,8 @@ function oneTimeKeyMachine() {
 			if (!isReusable) {
 				keys.splice(keyIndex, 1)
 				clearTimeout(burnQueue[userId+orgId+created])
-				console.log(`OTK (${key}) was removed from the org ${orgId}`)
+				writeToDump()
+				log.debug(`OTK (${key}) was removed from the org ${orgId}`)
 			}
 
 			return true;
@@ -28,7 +51,7 @@ function oneTimeKeyMachine() {
 	function setKey(data, orgId) {
 		const { userId, type = "digit", length = 4, life = 3600, isReusable = false } = data;
 		if (!userId || !orgId) {
-			throw new Error("User ID is undefined");
+			throw new Error("No UserID or OrgID");
 		}
 
 		const timeout = life * 1000
@@ -47,21 +70,23 @@ function oneTimeKeyMachine() {
 			}
 			keys.push(key);
 			addToBurnQueue(key, timeout)
+			writeToDump()
 
 			return newKey;
 		} catch (e) {
-			console.log(e);
+			log.error(e);
 			throw new Error("Set OTK failed");
 		}
 	}
 
 	function addToBurnQueue({key, userId, orgId, created}, timeout) {
-		console.log(`OTK (${key}) for org ${orgId} was added to the burn queue`)
+		log.debug(`OTK (${key}) for org ${orgId} was added to the burn queue`)
 		const queueItem = setTimeout(() => {
 			const index = keys.findIndex((item) => item.orgId === orgId && item.key === key )
 			if (index !== -1) {
 				keys.splice(index, 1)
-				console.log(`OTK (${key}) was removed from the org ${orgId}`)
+				writeToDump()
+				log.debug(`OTK (${key}) was removed from the org ${orgId}`)
 			}
 		}, timeout)
 
