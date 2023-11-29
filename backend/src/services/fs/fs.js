@@ -23,7 +23,7 @@ function readFile(filePath, name) {
 function writeFile(filePath, name, data) {
   const fullPath = path.join(projectPath, filePath)
   if (!fs.existsSync(fullPath)) {
-    createPath(path)
+    createPath(fullPath)
   }
   
   try {
