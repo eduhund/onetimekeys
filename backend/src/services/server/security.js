@@ -12,8 +12,8 @@ async function checkAPIToken(req, res, next) {
 
 		if (!tokenData) return next({ code: 10104 });
 
-		const { organization } = tokenData;
-		req.data = { org: organization };
+		const { orgId } = tokenData;
+		req.data = { orgId };
 		return next();
 	} catch (e) {
 		const err = { code: 20201, trace: e };
