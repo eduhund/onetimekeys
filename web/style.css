@@ -25,6 +25,7 @@ input[type=number] {
 }
 
 .keyContainer {
+	padding: 40px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -37,11 +38,13 @@ input[type=number] {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-wrap: wrap;
 	gap: 24px;
 }
 
 .customizer {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 24px;
 }
 
@@ -55,7 +58,7 @@ input[type=number] {
 	display: flex;
 	align-items: center;
 	gap: 4px;
-	padding: 4px 8px;
+	padding: 4px 0;
 	font-size: 24px;
 	line-height: 32px;
 	font-weight: 200;
@@ -63,7 +66,8 @@ input[type=number] {
 }
 
 input[type=radio] {
-	margin: 9px;
+	margin: 0;
+	margin-right: 9px;
 	-webkit-appearance: none;
 	appearance: none;
 	background-color: transparent;
@@ -73,6 +77,11 @@ input[type=radio] {
 	height: 24px;
 	border: 2px solid #ffffff;
 	border-radius: 8px;
+}
+
+.keyTypeSelector label:hover,
+input[type="radio"]:hover {
+	cursor: pointer;
 }
 
 input[type="radio"]:hover:before {
@@ -106,13 +115,15 @@ input[type="radio"]:checked:before {
 }
 
 .keyLengthSelector .number {
+	width: 48px;
+	height: 48px;
 	color: #ffffff;
 	background-color: transparent;
 	border: 2px solid transparent;
 	border-radius: 12px;
 	font-family: Poppins, Arial, Helvetica, sans-serif;;
 	font-size: 24px;
-	font-weight: 32px;
+	line-height: 32px;
 	font-weight: 200;
 	padding: 4px;
 	text-align: center;
@@ -129,10 +140,24 @@ input[type="radio"]:checked:before {
 }
 
 .key {
+	max-width: 80vw;
+	flex-grow: 1;
 	font-family: monospace;
 	font-size: 96px;
+	overflow-wrap: break-word;
+	text-align: center;
 	color: #ffffff;
 	cursor: pointer;
+}
+
+.key::-moz-selection {
+  color: #6b70e2;
+  background-color: #ffffff;
+}
+
+.key::selection {
+  color: #6b70e2;
+  background-color: #ffffff;
 }
 
 #refreshButton {
@@ -158,6 +183,7 @@ input[type=range].slider {
   margin: 11px 0;
   background-color: transparent;
   -webkit-appearance: none;
+	appearance: none;
 }
 input[type=range].slider:focus {
   outline: none;

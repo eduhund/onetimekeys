@@ -123,6 +123,21 @@ async function generate({type, length}) {
 	document.querySelector("#key").innerHTML = data?.key;
 }
 
+document.querySelector("#key").onclick = (event) => {
+	const value = event.target.innerText
+	const key = document.querySelector("#key")
+	const refreshButton = document.querySelector("#refreshButton")
+
+	navigator.clipboard.writeText(value)
+	key.innerText = "Copied!"
+	refreshButton.style.display = "none"
+
+	setTimeout(() => {
+		key.innerText = value
+		refreshButton.style.display = "block"
+	}, 1000)
+}
+
 const store = storeWorker()
 const limit = symbolLimit()
 init()
