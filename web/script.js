@@ -123,20 +123,26 @@ async function generate({type, length}) {
 	document.querySelector("#key").innerHTML = data?.key;
 }
 
-document.querySelector("#key").onclick = (event) => {
+function copyCode(event) {
 	const value = event.target.innerText
 	const key = document.querySelector("#key")
 	const refreshButton = document.querySelector("#refreshButton")
 
 	navigator.clipboard.writeText(value)
+	key.onclick = undefined
 	key.innerText = "Copied!"
+	key.style.cursor = "default"
 	refreshButton.style.display = "none"
 
 	setTimeout(() => {
+		key.onclick = copyCode
 		key.innerText = value
+		key.style.cursor = "pointer"
 		refreshButton.style.display = "block"
 	}, 1000)
 }
+
+document.querySelector("#key").onclick = copyCode
 
 const store = storeWorker()
 const limit = symbolLimit()
