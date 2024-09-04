@@ -1,37 +1,37 @@
 {
-	"name": "otk-backend",
-	"version": "0.1.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"start": "node index.js",
-		"test": "jest"
-	},
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/eduhund/onetimekeys.git"
-	},
-	"homepage": "https://onetimekeys.io",
-	"author": {
-		"name": "Roman Nebel",
-		"email": "im.roman.nebel@gmail.com",
-		"url": "https://github.com/roman-nebel"
-	},
-	"bugs": {
-		"url": "https://github.com/eduhund/onetimekeys/issues",
-		"email": "nebel@eduhund.com"
-	},
-	"dependencies": {
-		"cors": "^2.8.5",
-		"cron": "^3.1.7",
-		"dotenv": "^16.3.1",
-		"express": "^4.18.2",
-		"keycrafter": "^1.0.2",
-		"log4js": "^6.9.1",
-		"mongodb": "^5.8.1"
-	},
-	"devDependencies": {
-		"jest": "^29.6.4"
-	}
+  "name": "otk-backend",
+  "version": "0.2.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eduhund/onetimekeys.git"
+  },
+  "homepage": "https://onetimekeys.io",
+  "author": {
+    "name": "Roman Nebel",
+    "email": "im.roman.nebel@gmail.com",
+    "url": "https://github.com/roman-nebel"
+  },
+  "bugs": {
+    "url": "https://github.com/eduhund/onetimekeys/issues",
+    "email": "nebel@eduhund.com"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cron": "^3.1.7",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "keycrafter": "^1.0.2",
+    "log4js": "^6.9.1",
+    "mongodb": "^5.8.1"
+  },
+  "devDependencies": {
+    "jest": "^29.6.4"
+  }
 }

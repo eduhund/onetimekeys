@@ -61,7 +61,6 @@ function oneTimeKeyMachine() {
 
     try {
       const timeout = life * 1000;
-      const daysOfLife = life / (3600 * 24);
       const newKey = generateKey({ type, length });
       //keys = keys.filter((item) => item.userId !== user.id);
       const now = Date.now();
@@ -75,10 +74,7 @@ function oneTimeKeyMachine() {
       };
       keys.push(key);
       writeToDump();
-
-      if (daysOfLife > 21) {
-        addToBurnQueue(key, timeout);
-      }
+      addToBurnQueue(key, timeout);
 
       return newKey;
     } catch (e) {
