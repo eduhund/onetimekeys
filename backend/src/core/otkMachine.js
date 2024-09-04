@@ -86,7 +86,7 @@ function oneTimeKeyMachine() {
   function addToBurnQueue({ key, userId, orgId, created }, timeout) {
     const daysOfLife = timeout / (1000 * 3600 * 24);
 
-    if (timeout <= 0 && daysOfLife > 21) {
+    if (timeout <= 0 || daysOfLife > 21) {
       return;
     }
 
