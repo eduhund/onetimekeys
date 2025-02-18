@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./styles.css" rel="stylesheet" />
+    <title>OneTimeKey</title>
+  </head>
+  <body>
+    <div class="keyContainer">
+      <div class="keyContent">
+        <span id="key" class="key">0000</span>
+        <button id="refreshButton" value="Re-generate">
+          <img width="20px" src="./img/refresh.svg" />
+        </button>
+      </div>
+      <div class="customizer">
+        <ul class="keyTypeSelector">
+          <li>
+            <label>
+              <input type="radio" name="type" value="digit" checked />
+              Digit
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="type" value="string" />
+              String
+            </label>
+          </li>
+        </ul>
+        <div class="keyLengthSelector">
+          <input
+            class="slider"
+            id="keyLengthRange"
+            type="range"
+            min="4"
+            max="16"
+            value="4"
+          />
+          <input class="number" type="number" min="4" max="16" value="4" />
+        </div>
+      </div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
