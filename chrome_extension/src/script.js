@@ -143,6 +143,7 @@ function copyCode(event) {
 }
 
 document.querySelector("#key").onclick = copyCode;
+document.querySelector("#refreshButton").onclick = () => generate({});
 
 const store = storeWorker();
 const limit = symbolLimit();
