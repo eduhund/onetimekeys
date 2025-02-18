@@ -1,38 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link href="./style.css" rel="stylesheet" />
-		<title>One Time Keys | Pretty key generator service</title>
-	</head>
-	<body>
-		<div class="keyContainer">
-			<div class="keyContent">
-				<span id="key" class="key">0000</span>
-				<button id="refreshButton" onclick="generate({})" value="Re-generate"><img width="40px" src="src/img/refresh.svg"></button>
-			</div>
-			<div class="customizer">
-				<ul class="keyTypeSelector">
-					<li>
-						<label>
-							<input type="radio" name="type" value="digit" checked>
-							Digit
-						</label>
-					</li>
-					<li>
-						<label>
-							<input type="radio" name="type" value="string">
-							String
-						</label>
-					</li>
-				</ul>
-				<div class="keyLengthSelector">
-					<input class="slider" id="keyLengthRange" type="range" min="4" max="16" value="4">
-					<input class="number" type="number" min="4" max="16" value="4">
-				</div>
-			</div>
-		</div>
-		<script src="./script.js"></script>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./style.css" rel="stylesheet" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./src/img/favicon_32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./src/img/favicon_16.png"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./src/img/favicon_180.png"
+    />
+
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="./src/img/favicon_150.png" />
+
+    <link rel="icon" type="image/svg+xml" href="./src/img/favicon.svg" />
+
+    <link rel="manifest" href="./manifest.json" />
+
+    <title>OneTimeKey | Pretty key generator service</title>
+  </head>
+  <body>
+    <div class="keyContainer">
+      <div class="keyContent">
+        <span id="key" class="key">0000</span>
+        <button id="refreshButton" onclick="generate({})" value="Re-generate">
+          <img width="40px" src="src/img/refresh.svg" />
+        </button>
+      </div>
+      <div class="customizer">
+        <ul class="keyTypeSelector">
+          <li>
+            <label>
+              <input type="radio" name="type" value="digit" checked />
+              Digit
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="type" value="string" />
+              String
+            </label>
+          </li>
+        </ul>
+        <div class="keyLengthSelector">
+          <input
+            class="slider"
+            id="keyLengthRange"
+            type="range"
+            min="4"
+            max="16"
+            value="4"
+          />
+          <input class="number" type="number" min="4" max="16" value="4" />
+        </div>
+      </div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
 </html>
