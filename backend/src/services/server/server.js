@@ -19,39 +19,39 @@ app.use("/api", api);
 app.use("/source", source);
 
 api.use(
-	cors({
-		origin: "*",
-	})
+  cors({
+    origin: "*",
+  })
 );
 source.use(
-	cors({
-		origin: "https://api.eduhund.com",
-	})
+  cors({
+    origin: "chrome-extension://jmihecjplfcpegbpjpecjnicbdgojkcj",
+  })
 );
 
 api.use(checkAPIToken);
 
 for (const { name, type, exec } of API) {
-	api[type]("/" + name, exec);
+  api[type]("/" + name, exec);
 }
 
 for (const { name, type, exec } of SOURCE) {
-	source[type]("/" + name, exec);
+  source[type]("/" + name, exec);
 }
 
 app.use(responseHandler);
 app.use(pathHandler);
 
 async function start() {
-	return new Promise((resolve, reject) => {
-		app.listen(SERVER_PORT, (err) => {
-			if (err) {
-				return reject(err);
-			}
-			log.info(`OTK server starts on port ${SERVER_PORT}`);
-			return resolve();
-		});
-	});
+  return new Promise((resolve, reject) => {
+    app.listen(SERVER_PORT, (err) => {
+      if (err) {
+        return reject(err);
+      }
+      log.info(`OTK server starts on port ${SERVER_PORT}`);
+      return resolve();
+    });
+  });
 }
 
 module.exports = { start };
