@@ -7,6 +7,5 @@
     "default_popup": "src/popup.html",
     "default_icon": "src/icon.png"
   },
-  "permissions": ["storage"],
   "host_permissions": ["https://otk.eduhund.com/*"]
 }
